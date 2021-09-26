@@ -11,10 +11,10 @@ app.use(bodyParser.json())
 
 // Import Routes
 const postsRoute = require('./routes/income');
-// const userRoute = require('./routes/user');
+const tagRoute = require('./routes/tags');
 
 app.use('/income', postsRoute);
-// app.use('/user', userRoute);
+app.use('/tags', tagRoute);
 
 // Routes
 app.get('/', (req, res) => {

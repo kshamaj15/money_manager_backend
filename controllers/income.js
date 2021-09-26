@@ -1,6 +1,13 @@
 const Income = require('../models/income');
 
 const getAllIncome = async (req, res) => {
+    if(req.params.id) {
+        await Income.findById(req.params.id).then(incomeObj => {
+            res.status(200).json({ incomeObj: incomeObj });
+        }).catch(err => {
+            res.status(500).json({ error: err });
+        })
+    }
     await Income.find().then((data) => {
         res.status(200).json({ incomeList: data });
     }, err => {
