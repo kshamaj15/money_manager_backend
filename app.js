@@ -10,7 +10,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Import Routes
-const postsRoute = require('./Income/income');
+const postsRoute = require('./routes/income');
 // const userRoute = require('./routes/user');
 
 app.use('/income', postsRoute);
