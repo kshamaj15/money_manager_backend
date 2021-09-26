@@ -1,11 +1,12 @@
 const Income = require('../models/income');
-const asyncWrapper = require('../middleware/async.js')
 
 const getAllIncome = async (req, res) => {
-    console.log('daskjdjas');
-    const incomeList = await Income.find();
-    console.log('dasdas');
-    res.status(200).json({incomeList});
+    await Income.find().then((data) => {
+        res.status(200).json({ incomeList: data });
+    }, err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+    })
 }
 
 const addIncome = async (req, res) => {
@@ -16,23 +17,43 @@ const addIncome = async (req, res) => {
         amount: req.body.amount,
         userId: req.body.userId
     });
-    
+
     await newIncomeObj.save((err) => {
-    if(err){
-        console.log(err); res.status(500).json(err);}
-        res.status(201).json('Income added successfully');
+        if (err) {
+            console.log(err); res.status(500).json(err);
+        }
+        res.status(201).json({
+            message: 'Incoem added successfully',
+            newIncomeObj: newIncomeObj,
+        });
     })
-    // await newIncomeObj.save().then((income, err) => {
-    //     res.status(201).json(income);
-    // }).catch(err => {
-    //     console.log(err);
-    //     res.status(500).json(err);
-    // })
-    // const income = await Income.create(req.body)
-    // res.status(201).json({ income })
+}
+
+const updateIncome = async(req, res) => {
+    let id = req.params.id;
+    Income.findByIdAndUpdate(id, req.body).then((data, err) => {
+        if(err) res.status(500).json({error: err});
+        res.status(200).json({
+            message: 'Item Updated Successfully',
+            upatedIncome: data
+        });
+    }, err => {
+        res.status(500).json({error: err});
+    });
+}
+
+const deleteIncome = async(req, res) => {
+    let id = req.params.id;
+    Income.findByIdAndDelete(id).then(data => {
+        res.status(200).json({message: 'Item Deleted Successfully'});
+    }, err => {
+        res.status(500).json({error: err});
+    });
 }
 
 module.exports = {
     getAllIncome,
-    addIncome
+    addIncome,
+    updateIncome,
+    deleteIncome
 }

@@ -1,10 +1,12 @@
 const express = require('express');
 
-const { getAllIncome, addIncome } = require('../controllers/income');
+const { getAllIncome, addIncome, updateIncome, deleteIncome } = require('../controllers/income');
 
 const income = express.Router();
 
-// income.get('/', getAllIncome);
-income.post('/add', addIncome);
+income.get('/', getAllIncome);
+income.post('/', addIncome);
+income.delete('/delete/:id', deleteIncome);
+income.patch('/:id', updateIncome);
 
 module.exports = income;

@@ -22,8 +22,11 @@ app.get('/', (req, res) => {
 });
 
 // Connect MongoDB
-mongoose.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true, useNewUrlParser: true  }, () => {
+mongoose.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true, useNewUrlParser: true  }).then(() => {
 	console.log("Connected to DB")
-});
+}).catch(err => {
+	console.log('Not connected due to');
+	console.log(err);
+})
 
 app.listen(3000);
