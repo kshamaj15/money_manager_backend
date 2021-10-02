@@ -4,6 +4,7 @@ const { getAllIncome, addIncome, updateIncome, deleteIncome } = require('../cont
 
 const income = express.Router();
 
+income.get('/', getAllIncome);
 income.get('/:id', getAllIncome);
 income.post('/add', addIncome);
 income.delete('/delete/:id', deleteIncome);

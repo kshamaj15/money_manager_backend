@@ -17,7 +17,7 @@ const getTag = async (req, res) => {
     if(type){
         query.type = type
     }
-    await Tags.find(query).then((data, err) => {
+    await Tags.find().then((data, err) => {
         if(err)
         res.status(500).json({error: err});
         res.status(200).json({

@@ -10,10 +10,10 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Import Routes
-const postsRoute = require('./routes/income');
+const incomeRoute = require('./routes/income');
 const tagRoute = require('./routes/tags');
 
-app.use('/income', postsRoute);
+app.use('/income', incomeRoute);
 app.use('/tags', tagRoute);
 
 // Routes
