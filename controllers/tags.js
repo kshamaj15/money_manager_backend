@@ -4,11 +4,24 @@ const addTag = async (req, res) => {
     await Tags.create(req.body).then((data, err) => {
         if(err)
         res.status(500).json({error: err});
-        res.status(200).json({
+        res.status(201).json({
             message: 'tag added Successfully',
             tagObj: data
         })
     })
+}
+
+const deleteTag = async(req, res) => {
+    let id = req.params.id;
+    if(id) {
+        Tags.findByIdAndRemove(id).then((data, err) => {
+            if(err)
+            res.status(500).json({error: err});
+            res.status(200).json({
+                message: 'Tage Deleted Successfully'
+            })
+        })
+    }
 }
 
 const getTag = async (req, res) => {
@@ -27,5 +40,5 @@ const getTag = async (req, res) => {
 }
 
 module.exports = {
-    addTag, getTag
+    addTag, getTag, deleteTag
 }
